@@ -95,4 +95,87 @@ int main() {
                     cout << "Neteisingas mokinio numeris. Iveskite skaiciu nuo 1 iki " << DabartinisVarduKiekis << "." << endl;
                 }
             } while (nr < 1 || nr > DabartinisVarduKiekis);
-            int mokinys = nr
+            int mokinys = nr - 1;
+ 
+            // 3 (Konkretaus mokinio pazymiai)//
+            if (pasirinkimas == 3) {
+                cout << VisiVardai[mokinys] << ": ";
+                if (PazymiuKiekis[mokinys] == 0) {
+                    cout << "Pazymiu sarase nera";
+                }
+                for (int j = 0; j < PazymiuKiekis[mokinys]; j++) {
+                    cout << Pazymiai[mokinys][j] << " ";
+                }
+                cout << endl;
+            }
+ 
+            // 4 Pazymio atnaujinimas//
+            if (pasirinkimas == 4) {
+                if (PazymiuKiekis[mokinys] == 0) {
+                    cout << "Sis mokinys pazymiu neturi." << endl;
+                } else {
+                    int pnr;
+                    do {
+                        cout << "Iveskite pazymio numeri (1-" << PazymiuKiekis[mokinys] << "): ";
+                        cin >> pnr;
+                        if (pnr < 1 || pnr > PazymiuKiekis[mokinys]) {
+                            cout << "Neteisingas pazymio numeris. Iveskite skaiciu nuo 1 iki " << PazymiuKiekis[mokinys] << "." << endl;
+                        }
+                    } while (pnr < 1 || pnr > PazymiuKiekis[mokinys]);
+ 
+                    int pazymys;
+                    do {
+                        cout << "Iveskite nauja pazymi (1-10): ";
+                        cin >> pazymys;
+                        if (pazymys < 1 || pazymys > 10) {
+                            cout << "Pazymys turi buti nuo 1 iki 10. Bandykite dar karta." << endl;
+                        }
+                    } while (pazymys < 1 || pazymys > 10);
+                    Pazymiai[mokinys][pnr - 1] = pazymys;
+                    cout << "Pazymys atnaujintas." << endl;
+                }
+            }
+ 
+            // 5 Vidurkis//
+            if (pasirinkimas == 5) {
+                if (PazymiuKiekis[mokinys] == 0) {
+                    cout << "Sis mokinys pazymiu neturi, vidurkio apskaiciuoti negalima." << endl;
+                } else {
+                    double suma = 0;
+                    for (int j = 0; j < PazymiuKiekis[mokinys]; j++) {
+                        suma = suma + Pazymiai[mokinys][j];
+                    }
+                    double vidurkis = suma / PazymiuKiekis[mokinys];
+                    cout << VisiVardai[mokinys] << " vidurkis: " << vidurkis << endl;
+                }
+            }
+ 
+            // 6 Pasalinti mokini//
+            if (pasirinkimas == 6) {
+                //  Mokiniu stumimas i prieki
+                for (int i = mokinys; i < DabartinisVarduKiekis - 1; i++) {
+                    VisiVardai[i] = VisiVardai[i + 1];
+                    PazymiuKiekis[i] = PazymiuKiekis[i + 1];
+                    for (int j = 0; j < pazymiuMax; j++) {
+                        Pazymiai[i][j] = Pazymiai[i + 1][j];
+                    }
+                }
+                DabartinisVarduKiekis--;
+                cout << "Mokinys pasalintas." << endl;
+            }
+        }
+ 
+        // Darbo pabaiga//
+        if (pasirinkimas == 7) {
+            cout << "Geros dienos." << endl;
+        }
+ 
+        if (pasirinkimas < 1 || pasirinkimas > 7) {
+            cout << "Neteisingas pasirinkimas. Iveskite skaiciu nuo 1 iki 7." << endl;
+        }
+ 
+    } while (pasirinkimas != 7);
+ 
+    return 0;
+}
+
